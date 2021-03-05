@@ -53,18 +53,16 @@ h1 {
     padding: 40px 0;
     color: var(--txt_color);
     font-size: 60px;
-    animation: animate .6s linear;
+    opacity: 1;
+    animation: animate 2s cubic-bezier(0.42, 0, 0, 0.98);
 }
 
 @keyframes animate {
     0% {
-        transform:translateX(-400px);
-    }
-    40% {
-        transform:translateX(30px);
+        opacity: 0;
     }
     100% {
-        transform:translateX(0px);
+        opacity: 1;
     }
 }
 
