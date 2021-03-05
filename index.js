@@ -30,7 +30,6 @@
     const input = document.createElement("input");
     input.setAttribute("type", "tel");
     input.classList.add("questions__input");
-    input.placeholder = "+7 (___) ___-__-__";
     let inputMask = new Inputmask("+7 (999) 999-99-99");
     inputMask.mask(input)
 
