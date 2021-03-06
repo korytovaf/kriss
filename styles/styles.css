@@ -161,6 +161,7 @@ h1 {
 @media screen and (max-width: 424px) {
     .h1 {
         font-size: 30px;
+        padding: 0;
     }
 
     .questions,
