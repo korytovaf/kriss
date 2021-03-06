@@ -8,6 +8,7 @@
   ]
 
   const data = {
+    person: "Кристина К.",
     cafe: "Кафе",
     nameCafe: "#Щастье",
     date: "29.03.2021",
@@ -143,13 +144,14 @@
     const h1 = document.createElement("h1");
     h1.setAttribute("id", "h1")
     h1.classList.add("h1");
-    h1.textContent = "Приглашение на день рождения";
+    h1.innerHTML = `${data.person}<br>приглашает тебя<br>на день рождения`;
 
     container.append(h1);
 
     const question = pageQuestion();
     question.button.addEventListener("click", (e) => {
-      e.preventDefault()
+      e.preventDefault();
+      animateHearts();
       if (question.input.value <= 0) return
       const oldQuestions = document.getElementById("questions");
       oldQuestions.remove();
