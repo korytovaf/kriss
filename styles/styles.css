@@ -1,26 +1,30 @@
+@import "heart.css";
+
 @font-face {
     font-family: 'Catorze27 Style1 Thin';
-    src: url('./fonts/Catorze27Style1-Book.eot');
-    src: url('./fonts/Catorze27Style1-Book.eot?#iefix') format('embedded-opentype'),
-    url('./fonts/Catorze27Style1-Book.woff') format('woff'),
-    url('./fonts/Catorze27Style1-Book.ttf') format('truetype');
+    src: url('../fonts/Catorze27Style1-Book.eot');
+    src: url('../fonts/Catorze27Style1-Book.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Catorze27Style1-Book.woff') format('woff'),
+    url('../fonts/Catorze27Style1-Book.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Catorze27 Style1 Thin';
-    src: url('./fonts/Catorze27Style1-Thin.eot');
-    src: url('./fonts/Catorze27Style1-Thin.eot?#iefix') format('embedded-opentype'),
-    url('./fonts/Catorze27Style1-Thin.woff') format('woff'),
-    url('./fonts/Catorze27Style1-Thin.ttf') format('truetype');
+    src: url('../fonts/Catorze27Style1-Thin.eot');
+    src: url('../fonts/Catorze27Style1-Thin.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Catorze27Style1-Thin.woff') format('woff'),
+    url('../fonts/Catorze27Style1-Thin.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 :root {
-    --txt_color: #777676;
-
+    --text_color: #ffffff;
+    --heart: #fd8d8d;
+    --background: #ffb4b499;
+    --color_contrast: #ff5c5c;
 }
 
 * {
@@ -42,85 +46,69 @@ body {
 .container {
     display: flex;
     flex-direction: column;
+    align-items: center;
     max-width: 1024px;
     margin: 0 auto;
     padding: 0 40px;
     height: 100vh;
+    overflow: hidden;
 }
 
 h1 {
     text-align: center;
-    padding: 40px 0;
-    color: var(--txt_color);
+    padding: 16px 0;
+    color: var(--text_color);
     font-size: 60px;
-    opacity: 1;
-    animation: animate 2s cubic-bezier(0.42, 0, 0, 0.98);
-}
-
-@keyframes animate {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-.questions {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    z-index: 100;
 }
 
 .questions__text {
     font-size: 28px;
-    color: var(--txt_color);
+    color: var(--text_color);
     text-align: center;
     margin: 20px auto;
-    width: 400px;
     font-weight: bold;
 }
 
 .questions__input {
+    width: 280px;
     margin: 20px;
     padding: 10px 20px;
     border-radius: 8px;
-    border: 1px solid white;
+    border: none;
     font-size: 28px;
-    background-color: transparent;
+    background-color: var(--color_contrast);
     outline: none;
-    color: var(--txt_color);
+    color: var(--text_color);
     font-weight: bold;
-
+    box-shadow: 0 0 30px rgba(0,0,0,0.4);
 }
 
 .questions__input::placeholder {
     font-weight: bold;
-    color: var(--txt_color);
+    color: var(--text_color);
 }
 
 .questions__button {
+    width: 280px;
     margin: 20px;
     padding: 10px 20px;
     border-radius: 8px;
-    border: 1px solid white;
+    border: none;
     font-size: 28px;
-    background-color: transparent;
+    background-color: var(--color_contrast);
     outline: none;
-    color: var(--txt_color);
+    color: var(--text_color);
     font-weight: bold;
     cursor: pointer;
-    box-shadow:0px 0px 100px 0px rgba(255,143,239,0.37);
-    -webkit-box-shadow:0px 0px 100px 0px rgba(255,143,239,0.37);
-    -moz-box-shadow:0px 0px 100px 0px rgba(255,143,239,0.37);
+    box-shadow: 0 0 30px rgba(0,0,0,0.4);
 
     transition: all .4s;
     animation: pulse 4s linear infinite;
 }
 
 .questions__button:hover {
-    background-color: #ffb4b499;
+    transform: scale(1.03);
 }
 
 @keyframes pulse {
@@ -143,20 +131,31 @@ h1 {
         transform:scale(1);
     }
 }
-.invitation {
+.wrapper_glass {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 20px;
     font-size: 28px;
-    color: var(--txt_color);
+    color: var(--text_color);
     text-align: center;
     margin: 20px;
     font-weight: bold;
+    z-index: 100;
+    backdrop-filter: blur(9px);
+    border-radius: 10px;
+    max-width: 380px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    opacity: 0;
 }
 
 .invitation__date_time {
     margin: 20px;
+}
+
+.invitation__address {
+    font-size: 18px;
 }
 
 @media screen and (max-width: 424px) {
@@ -164,11 +163,10 @@ h1 {
         font-size: 30px;
     }
 
-    .questions, .questions__input, .questions__button {
-        font-size: 19px;
-    }
-
-    .invitation {
+    .questions,
+    .questions__input,
+    .questions__button,
+    .questions__text {
         font-size: 19px;
     }
 

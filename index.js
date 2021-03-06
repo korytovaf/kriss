@@ -7,6 +7,40 @@
     {name: "Матвей", phone: "+7 (888) 888-88-88"},
   ]
 
+  const data = {
+    cafe: "Кафе",
+    nameCafe: "#Щастье",
+    date: "29.03.2021",
+    time: "10:30",
+    address: "г.Иваново, пр.Ленина, д.2Б",
+    year: "10 лет"
+  }
+
+  const animateHearts = () => {
+    anime({
+      targets: ".heart",
+      translateX: () => {
+        return anime.random(-400, 400)
+      },
+      translateY: () => {
+        return anime.random(-400, 400)
+      },
+      rotate: 45,
+      scale: () => {
+        return anime.random(1, 4)
+      },
+      duration: 2000,
+    })
+  }
+
+  const animateInvitation = () => {
+    anime({
+      targets: ".wrapper_glass",
+      opacity: 1,
+      duration: 1500,
+    })
+  }
+
   const app = document.getElementById("app");
 
   const container = document.createElement("div");
@@ -21,15 +55,16 @@
   const pageQuestion = () => {
     const questions = document.createElement("div");
     questions.setAttribute("id", "questions")
-    questions.classList.add("questions");
+    questions.classList.add("wrapper_glass");
 
     const paragraph = document.createElement("p");
     paragraph.classList.add("questions__text");
-    paragraph.textContent = "Чтобы принять приглашение, укажи свой телефон";
+    paragraph.innerHTML = "Чтобы принять приглашение,<br>укажи свой телефон";
 
     const input = document.createElement("input");
     input.setAttribute("type", "tel");
     input.classList.add("questions__input");
+    input.placeholder = "+7 (___) ___-__-__"
     let inputMask = new Inputmask("+7 (999) 999-99-99");
     inputMask.mask(input)
 
@@ -49,13 +84,13 @@
       button
     }
   }
-  const invitationPage = (name, years) => {
+  const invitationPage = (name, data) => {
     const invitation = document.createElement("div");
-    invitation.classList.add("invitation");
+    invitation.classList.add("wrapper_glass");
 
-    const birthdayName = document.createElement("div");
-    birthdayName.classList.add("invitation__name");
-    birthdayName.textContent = `${name}, мне исполняется ${years}`;
+    const nameGuest = document.createElement("h1");
+    nameGuest.classList.add("h1");
+    nameGuest.textContent = name;
 
     const text = document.createElement("div");
     text.classList.add("invitation__text");
@@ -66,22 +101,27 @@
 
     const time = document.createElement("div");
     time.classList.add("invitation__time");
-    time.textContent = "Начало в 10:30";
+    time.textContent = `в ${data.time}`;
 
     const date = document.createElement("div");
     date.classList.add("invitation__date");
-    date.textContent = "29.03.2021";
+    date.textContent = data.date;
 
-    dateTime.append(time);
     dateTime.append(date);
+    dateTime.append(time);
+
+    const cafe = document.createElement("div");
+    cafe.classList.add("invitation__cafe");
+    cafe.textContent = `${data.cafe} "${data.nameCafe}"`;
 
     const address = document.createElement("div");
     address.classList.add("invitation__address");
-    address.textContent = "Кафе \"#Щастье\" г.Иваново, пр.Ленина, д.2Б";
+    address.textContent = data.address;
 
-    invitation.append(birthdayName);
+    invitation.append(nameGuest);
     invitation.append(text);
     invitation.append(dateTime);
+    invitation.append(cafe);
     invitation.append(address);
 
     return invitation
@@ -101,6 +141,7 @@
 
   const createPage = () => {
     const h1 = document.createElement("h1");
+    h1.setAttribute("id", "h1")
     h1.classList.add("h1");
     h1.textContent = "Приглашение на день рождения";
 
@@ -116,8 +157,12 @@
       phones.map(item => {
         if (question.input.value === item.phone) {
           count = count + 1;
-          const invitation = invitationPage(item.name, "10 лет");
+          const header = document.getElementById("h1");
+          header.remove();
+          const invitation = invitationPage(item.name, data);
           container.append(invitation);
+          animateHearts();
+          animateInvitation();
         }
       })
       if (count === 0) {
@@ -126,9 +171,23 @@
       }
     })
 
-    container.append(question.questions);
 
+    const heartContainer = document.createElement("div");
+    heartContainer.classList.add("heart__container");
+    container.append(heartContainer);
+
+    for (let i = 0; i <= 40; i++) {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heartContainer.append(heart);
+    }
+
+    animateHearts();
+
+    container.append(question.questions);
+    animateInvitation();
   }
 
   createPage();
+
 })();
