@@ -36,6 +36,7 @@
 
 body {
     background-color: #ffb4b499;
+    overflow-y: hidden;
 }
 
 .header {
